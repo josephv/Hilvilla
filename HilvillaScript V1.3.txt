@@ -1,0 +1,185 @@
+﻿/*
+Created: 14/02/2011
+Modified: 14/02/2011
+Model: MS SQL Server 2008
+Database: MS SQL Server 2008
+*/
+
+
+-- Create Database section -------------------------------------------------
+IF EXISTS(SELECT NAME FROM SYS.DATABASES WHERE NAME = 'hilvilla') 
+BEGIN 
+	DROP DATABASE hilvilla 
+END 
+	CREATE DATABASE hilvilla 
+GO 
+
+PRINT 'La base de datos: hilvilla ha sido creada con exito. Gracias, j2l Team.' 
+GO 
+
+USE hilvilla 
+GO 
+
+-- Create tables section -------------------------------------------------
+
+-- Table Cliente
+
+CREATE TABLE [Cliente]
+(
+ [RifCedula] Varchar(15) NOT NULL,
+ [Tipo] Char(1) NOT NULL,
+ [Nombre] Varchar(50) NOT NULL,
+ [Direccion] Varchar(100) NOT NULL,
+ [Apellido] Varchar(15) NULL
+)
+go
+
+-- Add keys for table Cliente
+ALTER TABLE [Cliente] ADD CONSTRAINT [idCliente] PRIMARY KEY ([RifCedula])
+go
+-- Table Telefono
+
+CREATE TABLE [Telefono]
+(
+ [IdTelefono] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Codigo] Int NOT NULL,
+ [Nro] Int NOT NULL,
+ [RifCedula] Varchar(15) NOT NULL
+)
+go
+
+-- Add keys for table Telefono
+
+-- Table Motor
+
+CREATE TABLE [Motor]
+(
+ [IdMotor] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Nombre] Varchar(20) NOT NULL,
+ [Anio] Date NULL,
+ [IdMarca] Int NOT NULL,
+ [IdTipo] Int NOT NULL
+)
+go
+
+-- Add keys for table Motor
+
+-- Table Marca
+
+CREATE TABLE [Marca]
+(
+ [IdMarca] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Nombre] Varchar(25) NOT NULL
+)
+go
+
+-- Table Tipo
+
+CREATE TABLE [Tipo]
+(
+ [IdTipo] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Nombre] Varchar(25) NOT NULL
+)
+go
+
+-- Add keys for table Marca
+
+-- Table ImpuestoDescuento
+
+CREATE TABLE [ImpuestoDescuento]
+(
+ [IdImpuestoDescuento] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Porcentaje] Int NOT NULL,
+ [Tipo] Char(1) NOT NULL
+)
+go
+
+-- Add keys for table ImpuestoDescuento
+
+-- Table Detalles
+
+CREATE TABLE [Detalles]
+(
+ [IdDetalle] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Descripcion] Varchar(max) NOT NULL,
+ [Tipo] Varchar(50) NOT NULL,
+ [Costo] Int NOT NULL
+)
+go
+
+-- Add keys for table Detalles
+
+-- Table Cotizacion_Detalles
+
+CREATE TABLE [Cotizacion_Detalles]
+(
+ [Fecha] Date NOT NULL,
+ [Cantidad] Int NOT NULL,
+ [IdCotizacion] Int NOT NULL,
+ [IdDetalle] Int NOT NULL
+)
+go
+
+-- Add keys for table Cotizacion_Detalles
+
+-- Table Cotizacion
+
+CREATE TABLE [Cotizacion]
+(
+ [IdCotizacion] Int IDENTITY(1,1)PRIMARY KEY CLUSTERED,
+ [Fecha] Date NOT NULL,
+ [Tipo] Char(1) NOT NULL,
+ [Control] Varchar(5) NOT NULL,
+ [RifCedula] Varchar(15) NOT NULL,
+ [IdMotor] Int NOT NULL
+)
+go
+
+-- Add keys for table Cotizacion
+
+-- Table Descuento_Cotizacion
+
+CREATE TABLE [Descuento_Cotizacion]
+(
+ [IdImpuestoDescuento] Int NOT NULL,
+ [IdCotizacion] Int NOT NULL
+)
+go
+
+-- Add keys for table Descuento_Cotizacion
+
+-- Create relationships section ------------------------------------------------- 
+
+ALTER TABLE [Telefono] ADD CONSTRAINT [Fk_ClienteTelefono] FOREIGN KEY ([RifCedula]) REFERENCES [Cliente] ([RifCedula])
+go
+
+ALTER TABLE [Motor] ADD CONSTRAINT [Fk_MarcaMotor] FOREIGN KEY ([IdMarca]) REFERENCES [Marca] ([IdMarca])
+go
+
+ALTER TABLE [Motor] ADD CONSTRAINT [Fk_TipoMotor] FOREIGN KEY ([IdTipo]) REFERENCES [Tipo] ([IdTipo])
+go
+
+ALTER TABLE [Cotizacion_Detalles] ADD CONSTRAINT [Fk_CotizacionDC] FOREIGN KEY ([IdCotizacion]) REFERENCES [Cotizacion] ([IdCotizacion])
+go
+
+ALTER TABLE [Cotizacion_Detalles] ADD CONSTRAINT [Fk_DetalleDC] FOREIGN KEY ([IdDetalle]) REFERENCES [Detalles] ([IdDetalle])
+go
+
+ALTER TABLE [Cotizacion_Detalles] ADD CONSTRAINT [ClaveP] PRIMARY KEY ([IdDetalle],[IdCotizacion],[Fecha])
+go
+
+ALTER TABLE [Cotizacion] ADD CONSTRAINT [Fk_ClienteCotizacion] FOREIGN KEY ([RifCedula]) REFERENCES [Cliente] ([RifCedula])
+go
+
+ALTER TABLE [Cotizacion] ADD CONSTRAINT [Fk_CotizacionMotor] FOREIGN KEY ([IdMotor]) REFERENCES [Motor] ([IdMotor])
+go
+
+ALTER TABLE [Descuento_Cotizacion] ADD CONSTRAINT [Fk_DescuentoDIC] FOREIGN KEY ([IdImpuestoDescuento]) REFERENCES [ImpuestoDescuento] ([IdImpuestoDescuento])
+go
+
+ALTER TABLE [Descuento_Cotizacion] ADD CONSTRAINT [Fk_CotizacionDIC] FOREIGN KEY ([IdCotizacion]) REFERENCES [Cotizacion] ([IdCotizacion])
+go
+
+
+
+

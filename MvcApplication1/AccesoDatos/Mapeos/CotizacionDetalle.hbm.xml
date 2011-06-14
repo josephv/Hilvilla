@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="CotizacionDetalle" table="`Cotizacion_Detalles`" schema="`dbo`">
+		<composite-id>
+			<key-property name="Fecha" column="`Fecha`" />
+			<key-property name="IdCotizacion" column="`IdCotizacion`" />
+			<key-property name="IdDetalle" column="`IdDetalle`" />
+		</composite-id>
+		<property name="Cantidad" type="Int32" column="`Cantidad`" />
+		<many-to-one name="Cotizacion" class="Cotizacion" column="`IdCotizacion`" not-null="true" fetch="select"  insert="false" update="false" />
+		<many-to-one name="Detalle" class="Detalle" column="`IdDetalle`" not-null="true" fetch="select"  insert="false" update="false"/>
+	</class>
+</hibernate-mapping>

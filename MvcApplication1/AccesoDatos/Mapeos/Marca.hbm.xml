@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Marca" table="`Marca`" schema="`dbo`">
+		<id name="IdMarca" access="property" column="`IdMarca`">
+			<generator class="native" />
+		</id>
+		<property name="Nombre" type="String" column="`Nombre`" length="25" />
+		<set name="Motors" lazy="false">
+			<key column="`IdMarca`" />
+			<one-to-many class="Motor" />
+		</set>
+	</class>
+</hibernate-mapping>

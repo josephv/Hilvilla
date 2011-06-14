@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="ImpuestoDescuento" table="`ImpuestoDescuento`" schema="`dbo`">
+		<id name="IdImpuestoDescuento" access="property" column="`IdImpuestoDescuento`">
+			<generator class="native" />
+		</id>
+		<property name="Porcentaje" type="Int32" column="`Porcentaje`" />
+		<property name="Tipo" type="String" column="`Tipo`" length="1" />
+		<set name="Cotizacions" table="`Descuento_Cotizacion`" lazy="false">
+			<key column="`IdImpuestoDescuento`" />
+			<many-to-many class="Cotizacion" column="`IdCotizacion`" />
+		</set>
+	</class>
+</hibernate-mapping>

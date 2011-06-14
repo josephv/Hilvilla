@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Cotizacion" table="`Cotizacion`" schema="`dbo`">
+		<id name="IdCotizacion" access="property" column="`IdCotizacion`">
+			<generator class="native" />
+		</id>
+		<property name="Fecha" type="DateTime" column="`Fecha`" />
+		<property name="Tipo" type="String" column="`Tipo`" length="1" />
+    <property name="Control" type="String" column="`Control`" length="4" />
+		<many-to-one name="Cliente" class="Cliente" column="`RifCedula`" not-null="true" fetch="select" />
+		<set name="CotizacionDetalles" lazy="false">
+			<key column="`IdCotizacion`" />
+			<one-to-many class="CotizacionDetalle" />
+		</set>
+		<set name="ImpuestoDescuentos" table="`Descuento_Cotizacion`" lazy="false">
+			<key column="`IdCotizacion`" />
+			<many-to-many class="ImpuestoDescuento" column="`IdImpuestoDescuento`" />
+		</set>
+		<many-to-one name="Motor" class="Motor" column="`IdMotor`" not-null="true" fetch="select" />
+	</class>
+</hibernate-mapping>

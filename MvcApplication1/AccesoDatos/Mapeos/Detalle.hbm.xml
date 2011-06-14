@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Detalle" table="`Detalles`" schema="`dbo`">
+		<id name="IdDetalle" access="property" column="`IdDetalle`">
+			<generator class="native" />
+		</id>
+		<property name="Costo" type="Int32" column="`Costo`" />
+		<property name="Descripcion" type="String" column="`Descripcion`" />
+    <property name="Tipo" type="String" column="`Tipo`" />
+		<set name="CotizacionDetalles" lazy="false">
+			<key column="`IdDetalle`" />
+			<one-to-many class="CotizacionDetalle" />
+		</set>
+	</class>
+</hibernate-mapping>

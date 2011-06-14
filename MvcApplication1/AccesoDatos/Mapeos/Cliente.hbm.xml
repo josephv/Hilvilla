@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Cliente" table="`Cliente`" schema="`dbo`">
+		<id name="RifCedula" access="property" column="`RifCedula`" length="15">
+			<generator class="assigned" />
+		</id>
+		<property name="Apellido" type="String" column="`Apellido`" length="15" />
+		<property name="Direccion" type="String" column="`Direccion`" length="100" />
+		<property name="Nombre" type="String" column="`Nombre`" length="50" />
+		<property name="Tipo" type="String" column="`Tipo`" length="1" />
+		<set name="Cotizacions" lazy="true">
+			<key column="`RifCedula`" />
+			<one-to-many class="Cotizacion" />
+		</set>
+		<set name="Telefonos" lazy="true">
+			<key column="`RifCedula`" />
+			<one-to-many class="Telefono" />
+		</set>
+	</class>
+</hibernate-mapping>

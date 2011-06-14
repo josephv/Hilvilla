@@ -1,0 +1,63 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="HeaderContent" runat="server">
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="content ui-helper-clearfix">
+        <div class="content-main">
+            <div class="navarea">
+                <div class="menu ui-tabs ui-widget ui-corner-all ui-widget-content">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Home") %>">
+                            <%: Html.ActionLink("Principal", "Index", "Home")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Cliente") %>">
+                            <%: Html.ActionLink("Clientes", "Index", "Cliente")%>
+                        </li>
+                         <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Cliente") %>">
+                            <%: Html.ActionLink("Marcas", "Index", "Marca")%>
+                        </li>
+                         <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Cliente") %>">
+                            <%: Html.ActionLink("Motores", "Index", "Motor")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Cliente") %>">
+                            <%: Html.ActionLink("Tipos Mot.", "Index", "Tipo")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Presupuesto") %>">
+                            <%: Html.ActionLink("Presupuestos", "Index", "Presupuesto")%>
+                        </li>
+                         <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Facturar") %>">
+                            <%: Html.ActionLink("Facturar", "Index", "Facturar")%>
+                        </li>
+                    </ul>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+        <div class="content-side">
+            <div class="sidebox ui-widget ui-widget-content ui-corner-all">
+                <div class="sidebox-header ui-widget-header ui-corner-top ui-state-default"><span>Informacion Adicional</span></div>
+               
+                   <br />
+                        <h3>Bienvenido!</h3>
+                   <br />
+                 
+            </div>
+
+            <asp:ContentPlaceHolder ID="SideContent" runat="server">
+
+            </asp:ContentPlaceHolder>
+        </div>        
+                     
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+            </asp:ContentPlaceHolder>
+        </div>        
+          
+    
+</asp:Content>

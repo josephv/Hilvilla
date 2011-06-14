@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="Hilvilla.Dominio.Model" assembly="Hilvilla" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Telefono" table="`Telefono`" schema="`dbo`">
+		<id name="IdTelefono" access="property" column="`IdTelefono`">
+			<generator class="native" />
+		</id>
+		<property name="Codigo" type="Int32" column="`Codigo`" />
+		<property name="Nro" type="Int32" column="`Nro`" />
+		<many-to-one name="Cliente" class="Cliente" column="`RifCedula`" not-null="true" fetch="select" />
+	</class>
+</hibernate-mapping>
